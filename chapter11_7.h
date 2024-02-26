@@ -1,8 +1,6 @@
 #ifndef COMPLEX_H_
 #define COMPLEX_H_
 
-// macOS github testing now
-
 namespace COMPLEX
 {
     class Complex

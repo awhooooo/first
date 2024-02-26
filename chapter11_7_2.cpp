@@ -3,8 +3,6 @@
 using namespace std;
 using namespace COMPLEX;
 
-// macOS github testing now
-
 int main()
 {
     Complex a(3, 4);

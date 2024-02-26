@@ -1,8 +1,6 @@
 #include <iostream>
 #include "chapter11_7.h"
 
-// macOS github testing now
-
 namespace COMPLEX
 {
     Complex::Complex()
