@@ -37,6 +37,7 @@ class ECDSA
                                      const OptionalPoint& signature);
         static std::string der(const OptionalPoint& P1);
 
+        static unsigned char hex_char_to_bin(char c);
         static std::vector<unsigned char> string_to_binary(const std::string& str);
         static std::string binary_to_hex(const std::vector<unsigned char>& binary_data);
         static std::vector<unsigned char> sha256(const std::vector<unsigned char>& data);
