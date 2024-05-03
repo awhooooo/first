@@ -2,6 +2,7 @@
 #include <openssl/sha.h>
 #include <cassert>
 #include <random>
+#include <stdexcept>
 
 using namespace boost::multiprecision;
 
@@ -261,10 +262,31 @@ std::string ECDSA::der(const OptionalPoint& P1) {
     return ECDSA::binary_to_hex(result);
 }
 
-// Convert string to binary data
-std::vector<unsigned char> ECDSA::string_to_binary(const std::string& str) {
+unsigned char ECDSA::hex_char_to_bin(char c) 
+{
+    if (c >= '0' && c <= '9') 
+        return c - '0';
+    if (c >= 'A' && c <= 'F') 
+        return 10 + (c - 'A');
+    if (c >= 'a' && c <= 'f') 
+        return 10 + (c - 'a');
+    throw std::invalid_argument("Invalid hexadecimal character");
+}
 
-    return std::vector<unsigned char>(str.begin(), str.end());
+// Convert string to binary data
+std::vector<unsigned char> ECDSA::hexstring_to_binary(const std::string& hex) {
+    std::vector<unsigned char> binary;
+    if (hex.size() % 2 != 0) {
+        throw std::invalid_argument("Hexadecimal string length must be even");
+    }
+
+    for (size_t i = 0; i < hex.size(); i += 2) {
+        unsigned char high = ECDSA::hex_char_to_bin(hex[i]);
+        unsigned char low = ECDSA::hex_char_to_bin(hex[i+1]);
+        binary.push_back((high << 4) | low);
+    }
+    
+    return binary;
 }
 
 // Convert binary data to hexadecimal string
